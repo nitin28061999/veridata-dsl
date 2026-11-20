@@ -1,0 +1,6 @@
+order_id,order_date,delivery_date,shipping_cost,status
+ORD-1001,2026-10-01,2026-10-04,12.50,delivered
+ORD-1002,2026-10-05,2026-10-02,15.00,delivered
+ORD-1003,2026-10-03,,9999.99,shipped
+ORD-1004,2026-10-04,,14.25,returned
+ORD-1005,2026-10-05,,,pending

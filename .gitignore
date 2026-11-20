@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+venv/
+.venv/
+run_orders_audit.py
+audit_report.json
+veridata-syntax-summit.zip

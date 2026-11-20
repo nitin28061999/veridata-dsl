@@ -1,0 +1,21 @@
+dataset "OrdersAudit" from "examples/orders_dirty.csv" {
+  schema {
+    order_id: string [unique, not_null]
+    order_date: date
+    delivery_date: date
+    shipping_cost: float [min: 0, max: 5000]
+    status: enum("pending", "shipped", "delivered", "cancelled")
+  }
+
+  rules {
+    expect completeness(order_id) == 100% else halt "Missing order IDs"
+    expect completeness(shipping_cost) >= 98% else warn "Elevated missing shipping costs"
+    assert delivery_date >= order_date where status == "delivered" else halt "Delivery before order date"
+    assert outliers(shipping_cost, method: "iqr", threshold: 2.5) < 2% else warn "Shipping cost outliers detected"
+  }
+
+  on_failure {
+    export "audit_report.json"
+    summary true
+  }
+}
